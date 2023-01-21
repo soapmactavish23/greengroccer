@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
 import 'package:greengrocer/src/auth/config/custom_colors.dart';
 import 'package:greengrocer/src/auth/sign_up_screen.dart';
+import 'package:greengrocer/src/base/base_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -89,7 +90,13 @@ class SignInScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(18),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (c) {
+                            return const BaseScreen();
+                          }),
+                        );
+                      },
                       child: const Text(
                         "Entrar",
                         style: TextStyle(fontSize: 18),
