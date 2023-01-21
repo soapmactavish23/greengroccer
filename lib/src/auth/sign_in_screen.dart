@@ -2,13 +2,13 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
 import 'package:greengrocer/src/auth/config/custom_colors.dart';
+import 'package:greengrocer/src/auth/sign_up_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -102,7 +102,8 @@ class SignInScreen extends StatelessWidget {
                       onPressed: () {},
                       child: Text(
                         "Esqueceu a senha?",
-                        style: TextStyle(color: CustomColors.customContrastColor),
+                        style:
+                            TextStyle(color: CustomColors.customContrastColor),
                       ),
                     ),
                   ),
@@ -141,7 +142,13 @@ class SignInScreen extends StatelessWidget {
                           color: Colors.green,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (c) {
+                            return SignUpScreen();
+                          }),
+                        );
+                      },
                       child: const Text(
                         "Criar Conta",
                         style: TextStyle(fontSize: 18),
