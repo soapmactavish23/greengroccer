@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/pages/home/components/category_tile.dart';
+import 'package:greengrocer/src/config/app_data.dart' as appData;
 
 class HomeTab extends StatefulWidget {
   HomeTab({Key? key}) : super(key: key);
@@ -11,14 +12,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  List<String> categories = [
-    'Frutas',
-    'Grãos',
-    'Verduras',
-    'Temperos',
-    'Cereais',
-  ];
-
   String selectedCategory = 'Frutas';
 
   @override
@@ -95,19 +88,35 @@ class _HomeTabState extends State<HomeTab> {
                 return CategoryTile(
                   onTap: () {
                     setState(() {
-                      selectedCategory = categories[index];
+                      selectedCategory = appData.categories[index];
                     });
                   },
-                  category: categories[index],
-                  isSelected: categories[index] == selectedCategory,
+                  category: appData.categories[index],
+                  isSelected: appData.categories[index] == selectedCategory,
                 );
               },
               separatorBuilder: ((context, index) => const SizedBox(
                     width: 10,
                   )),
-              itemCount: categories.length,
+              itemCount: appData.categories.length,
             ),
-          )
+          ),
+          // TODO: GRID VIEW
+          //   Expanded(
+          //   child: GridView.builder(
+          //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //       crossAxisCount: 2,
+          //       mainAxisSpacing: 20,
+          //       crossAxisSpacing: 20,
+          //     ),
+          //     itemCount: appData.items.length,
+          //     itemBuilder: (_, index) {
+          //       return Container(
+          //         color: Colors.red,
+          //       );
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );
