@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/pages/home/components/category_tile.dart';
 import 'package:greengrocer/src/config/app_data.dart' as appData;
+import 'package:greengrocer/src/pages/home/components/item_tile.dart';
 
 class HomeTab extends StatefulWidget {
   HomeTab({Key? key}) : super(key: key);
@@ -101,22 +102,21 @@ class _HomeTabState extends State<HomeTab> {
               itemCount: appData.categories.length,
             ),
           ),
-          // TODO: GRID VIEW
-          //   Expanded(
-          //   child: GridView.builder(
-          //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          //       crossAxisCount: 2,
-          //       mainAxisSpacing: 20,
-          //       crossAxisSpacing: 20,
-          //     ),
-          //     itemCount: appData.items.length,
-          //     itemBuilder: (_, index) {
-          //       return Container(
-          //         color: Colors.red,
-          //       );
-          //     },
-          //   ),
-          // ),
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+              ),
+              itemCount: appData.items.length,
+              itemBuilder: (_, index) {
+                return ItemTile(
+                  item: appData.items[index],
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
