@@ -23,7 +23,7 @@ class _CartTabState extends State<CartTab> {
 
   double cartTotalPrice() {
     double total = 0;
-    for(var item in appData.cartItems) {
+    for (var item in appData.cartItems) {
       total += item.totalPrice();
     }
     return total;
@@ -42,9 +42,8 @@ class _CartTabState extends State<CartTab> {
               itemCount: appData.cartItems.length,
               itemBuilder: (context, index) {
                 return CartTile(
-                  cartItem: appData.cartItems[index],
-                  remove: removeItemFromCart
-                );
+                    cartItem: appData.cartItems[index],
+                    remove: removeItemFromCart);
               },
             ),
           ),
@@ -83,12 +82,15 @@ class _CartTabState extends State<CartTab> {
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: CustomColors.customSwatchColor,
+                      backgroundColor: CustomColors.customSwatchColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      bool? result = await showOrderConfirmation();
+                      print(result);
+                    },
                     child: const Text(
                       'Concluir Pedido',
                       style: TextStyle(fontSize: 18),
@@ -101,5 +103,40 @@ class _CartTabState extends State<CartTab> {
         ],
       ),
     );
+  }
+
+  Future<bool?> showOrderConfirmation() {
+    return showDialog<bool>(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            title: const Text('Confirmação'),
+            content: const Text('Deseja realmente concluir o pedido?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+
+                  Navigator.of(context).pop(false);
+
+                },
+                child: const Text('Não'),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text('Sim'),
+              )
+            ],
+          );
+        });
   }
 }
