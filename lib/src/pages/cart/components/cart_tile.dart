@@ -4,10 +4,20 @@ import 'package:greengrocer/src/models/cart_item_model.dart';
 import 'package:greengrocer/src/pages/common_widgets/quantity_widget.dart';
 import 'package:greengrocer/src/services/utils_service.dart';
 
-class CartTile extends StatelessWidget {
+class CartTile extends StatefulWidget {
   final CartItemModel cartItem;
-  CartTile({Key? key, required this.cartItem}) : super(key: key);
+  final Function(CartItemModel) remove;
+  const CartTile({
+    Key? key,
+    required this.cartItem,
+    required this.remove,
+  }) : super(key: key);
 
+  @override
+  State<CartTile> createState() => _CartTileState();
+}
+
+class _CartTileState extends State<CartTile> {
   final UtilsService utilsService = UtilsService();
 
   @override
@@ -17,26 +27,32 @@ class CartTile extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ListTile(
         leading: Image.asset(
-          cartItem.item.imgUrl,
+          widget.cartItem.item.imgUrl,
           height: 60,
           width: 60,
         ),
         title: Text(
-          cartItem.item.itemName,
+          widget.cartItem.item.itemName,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
         ),
         subtitle: Text(
-          utilsService.priceToCurreny(cartItem.totalPrice()),
+          utilsService.priceToCurreny(widget.cartItem.totalPrice()),
           style: TextStyle(
               color: CustomColors.customSwatchColor,
               fontWeight: FontWeight.bold),
         ),
         trailing: QuantityWidget(
-          suffixText: cartItem.item.unit,
-          value: cartItem.quantity,
-          result: (quantity) {},
+          suffixText: widget.cartItem.item.unit,
+          value: widget.cartItem.quantity,
+          result: (quantity) {
+            setState(() {
+              widget.cartItem.quantity = quantity;
+              if (quantity == 0) widget.remove(widget.cartItem);
+            });
+          },
+          isRemovable: true,
         ),
       ),
     );
