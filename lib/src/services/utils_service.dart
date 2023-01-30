@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 class UtilsService {
   
-  String priceToCurreny(double price) {
+  static String priceToCurreny(double price) {
     NumberFormat numberFormat = NumberFormat.simpleCurrency(locale: 'pt_BR');
     return numberFormat.format(price);
   }

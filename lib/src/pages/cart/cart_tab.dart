@@ -72,7 +72,7 @@ class _CartTabState extends State<CartTab> {
                   style: TextStyle(fontSize: 12),
                 ),
                 Text(
-                  utilsService.priceToCurreny(cartTotalPrice()),
+                  UtilsService.priceToCurreny(cartTotalPrice()),
                   style: TextStyle(
                       fontSize: 23,
                       color: CustomColors.customSwatchColor,

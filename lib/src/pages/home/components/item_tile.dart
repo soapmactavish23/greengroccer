@@ -51,7 +51,7 @@ class ItemTile extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        utilsService.priceToCurreny(item.price),
+                        UtilsService.priceToCurreny(item.price),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: CustomColors.customSwatchColor,
