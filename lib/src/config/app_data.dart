@@ -101,7 +101,7 @@ List<OrderModel> orders = [
       '2022-06-08 11:00:10.458',
     ),
     id: 'asd6a54da6s2d1',
-    status: 'pending_payment',
+    status: 'delivered',
     total: 11.0,
     items: [
       CartItemModel(
