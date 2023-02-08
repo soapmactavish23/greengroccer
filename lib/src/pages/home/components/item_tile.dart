@@ -7,7 +7,7 @@ import 'package:greengrocer/src/pages/product/product_screen.dart';
 import 'package:greengrocer/src/services/utils_service.dart';
 
 // ignore: must_be_immutable
-class ItemTile extends StatelessWidget {
+class ItemTile extends StatefulWidget {
   ItemModel item;
 
   ItemTile({
@@ -15,7 +15,26 @@ class ItemTile extends StatelessWidget {
     required this.item,
   }) : super(key: key);
 
+  @override
+  State<ItemTile> createState() => _ItemTileState();
+}
+
+class _ItemTileState extends State<ItemTile> {
   final UtilsService utilsService = UtilsService();
+
+  IconData tileIcon = Icons.add_shopping_cart_outlined;
+
+  Future<void> switchIcon() async {
+    setState(() {
+      tileIcon = Icons.check;
+    });
+
+    await Future.delayed(const Duration(milliseconds: 1500));
+
+    setState(() {
+      tileIcon = Icons.add_shopping_cart_outlined;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +45,7 @@ class ItemTile extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (c) {
                 return ProductScreen(
-                  item: item,
+                  item: widget.item,
                 );
               }),
             );
@@ -44,23 +63,24 @@ class ItemTile extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Hero(
-                          tag: item.imgUrl, child: Image.asset(item.imgUrl))),
+                          tag: widget.item.imgUrl,
+                          child: Image.asset(widget.item.imgUrl))),
                   Text(
-                    item.itemName,
+                    widget.item.itemName,
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Row(
                     children: [
                       Text(
-                        UtilsService.priceToCurreny(item.price),
+                        UtilsService.priceToCurreny(widget.item.price),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: CustomColors.customSwatchColor,
                         ),
                       ),
                       Text(
-                        '/${item.unit}',
+                        '/${widget.item.unit}',
                         style: TextStyle(
                           color: Colors.grey.shade500,
                           fontWeight: FontWeight.bold,
@@ -84,15 +104,17 @@ class ItemTile extends StatelessWidget {
             ),
             child: Material(
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  switchIcon();
+                },
                 child: Ink(
                   height: 40,
                   width: 30,
                   decoration: BoxDecoration(
                     color: CustomColors.customSwatchColor,
                   ),
-                  child: const Icon(
-                    Icons.add_shopping_cart_outlined,
+                  child: Icon(
+                    tileIcon,
                     color: Colors.white,
                     size: 20,
                   ),
