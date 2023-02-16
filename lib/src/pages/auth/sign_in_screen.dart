@@ -111,6 +111,7 @@ class SignInScreen extends StatelessWidget {
                             onPressed: authController.isLoading.value
                                 ? null
                                 : () {
+                                    FocusScope.of(context).unfocus();
                                     if (_formKey.currentState!.validate()) {
                                       String email = emailEC.text;
                                       String password = passwordEC.text;
