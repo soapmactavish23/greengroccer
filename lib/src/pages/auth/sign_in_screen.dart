@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:greengrocer/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrocer/src/pages/common_widgets/app_name_widget.dart';
 import 'package:greengrocer/src/pages/common_widgets/custom_text_field.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
@@ -96,29 +97,41 @@ class SignInScreen extends StatelessWidget {
                             .validar(value);
                       },
                     ),
-                    SizedBox(
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            String email = emailEC.text;
-                            String password = passwordEC.text;
+                    GetX<AuthController>(
+                      init: AuthController(),
+                      builder: (authController) {
+                        return SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                            ),
+                            onPressed: authController.isLoading.value
+                                ? null
+                                : () {
+                                    if (_formKey.currentState!.validate()) {
+                                      String email = emailEC.text;
+                                      String password = passwordEC.text;
 
-                            print('Email: $email, Senha: $password');
-                          } else {
-                            print('campos estão inválidos!');
-                          }
-                        },
-                        child: const Text(
-                          "Entrar",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
+                                      authController.signIn(
+                                        email: email,
+                                        password: password,
+                                      );
+                                    } else {
+                                      print('campos estão inválidos!');
+                                    }
+                                  },
+                            child: authController.isLoading.value
+                                ? const CircularProgressIndicator()
+                                : const Text(
+                                    "Entrar",
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                          ),
+                        );
+                      },
                     ),
                     Align(
                       alignment: Alignment.centerRight,
