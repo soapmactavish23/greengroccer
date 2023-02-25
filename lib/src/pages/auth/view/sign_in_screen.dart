@@ -6,6 +6,7 @@ import 'package:greengrocer/src/pages/common_widgets/app_name_widget.dart';
 import 'package:greengrocer/src/pages/common_widgets/custom_text_field.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/pages_routes/app_pages.dart';
+import 'package:greengrocer/src/services/validators.dart';
 import 'package:validadores/Validador.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -77,25 +78,15 @@ class SignInScreen extends StatelessWidget {
                       controller: emailEC,
                       icon: Icons.email,
                       label: "E-mail",
-                      validator: (value) {
-                        return Validador()
-                            .add(Validar.EMAIL, msg: "E-mail inválido")
-                            .validar(value);
-                      },
+                      textInputType: TextInputType.emailAddress,
+                      validator: emailValidator,
                     ),
                     CustomTextField(
                       controller: passwordEC,
                       icon: Icons.lock,
                       label: "Senha",
                       isSecret: true,
-                      validator: (value) {
-                        return Validador()
-                            .minLength(
-                              7,
-                              msg: "A senha deve ter pelo menos 7 caracteres",
-                            )
-                            .validar(value);
-                      },
+                      validator: passwordValidator,
                     ),
                     GetX<AuthController>(
                       init: AuthController(),
@@ -120,8 +111,6 @@ class SignInScreen extends StatelessWidget {
                                         email: email,
                                         password: password,
                                       );
-                                    } else {
-                                      print('campos estão inválidos!');
                                     }
                                   },
                             child: authController.isLoading.value
