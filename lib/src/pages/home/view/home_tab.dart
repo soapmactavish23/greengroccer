@@ -1,13 +1,11 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/pages/common_widgets/app_name_widget.dart';
 import 'package:greengrocer/src/pages/common_widgets/custom_shimmer.dart';
 import 'package:greengrocer/src/pages/home/components/category_tile.dart';
 import 'package:greengrocer/src/config/app_data.dart' as appData;
 import 'package:greengrocer/src/pages/home/components/item_tile.dart';
-import 'package:greengrocer/src/pages/home/controller/home_controller.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -25,7 +23,7 @@ class _HomeTabState extends State<HomeTab> {
   void initState() {
     super.initState();
 
-    Get.find<HomeController>().printExample();
+    // Get.find<HomeController>().printExample();
 
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
