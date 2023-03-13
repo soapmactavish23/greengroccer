@@ -18,7 +18,6 @@ class HomeRepository {
               .map(CategoryModel.fromJson)
               .toList();
 
-      print(data);
       return HomeResult<CategoryModel>.success(data);
     } else {
       return HomeResult.error(
