@@ -144,24 +144,38 @@ class _HomeTabState extends State<HomeTab> {
           GetBuilder<HomeController>(builder: (controller) {
             return Expanded(
               child: !controller.isProductLoading
-                  ? GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 20,
-                        crossAxisSpacing: 20,
+                  ? Visibility(
+                      visible:
+                          (controller.currentCategory?.items ?? []).isNotEmpty,
+                      replacement: Column(
+                        children: [
+                          Icon(
+                            Icons.search_off,
+                            size: 40,
+                            color: CustomColors.customSwatchColor,
+                          ),
+                          const Text('Não há itens para apresentar'),
+                        ],
                       ),
-                      itemCount: controller.allProducts.length,
-                      itemBuilder: (_, index) {
-                        if (((index + 1) == controller.allProducts.length) &&
-                            (!controller.isLastPage)) {
-                          controller.loadMoreProducts();
-                        }
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 20,
+                          crossAxisSpacing: 20,
+                        ),
+                        itemCount: controller.allProducts.length,
+                        itemBuilder: (_, index) {
+                          if (((index + 1) == controller.allProducts.length) &&
+                              (!controller.isLastPage)) {
+                            controller.loadMoreProducts();
+                          }
 
-                        return ItemTile(
-                          item: controller.allProducts[index],
-                        );
-                      },
+                          return ItemTile(
+                            item: controller.allProducts[index],
+                          );
+                        },
+                      ),
                     )
                   : GridView.count(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
