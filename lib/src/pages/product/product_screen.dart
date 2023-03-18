@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 
 import 'package:greengrocer/src/models/item_model.dart';
+import 'package:greengrocer/src/pages/base/controller/navigation_controller.dart';
 import 'package:greengrocer/src/pages/common_widgets/quantity_widget.dart';
 import 'package:greengrocer/src/services/utils_service.dart';
 
@@ -24,6 +26,8 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final navigationController = Get.find<NavigationController>();
+
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(230),
       body: Stack(
@@ -101,7 +105,12 @@ class _ProductScreenState extends State<ProductScreen> {
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15))),
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.back();
+                              navigationController.navigatePageView(
+                                NavigationTabs.cart,
+                              );
+                            },
                             label: const Text(
                               "Add no carrinho",
                               style: TextStyle(
