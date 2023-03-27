@@ -5,6 +5,8 @@ import 'package:greengrocer/src/pages_routes/app_pages.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   Get.put(AuthController());
 
   initializeDateFormatting().then((_) => runApp(const MyApp()));
