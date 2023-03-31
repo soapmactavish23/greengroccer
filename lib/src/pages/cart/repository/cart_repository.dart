@@ -30,4 +30,24 @@ class CartRepository {
           'Ocorreu um erro ao recuperar os itens do carrinho');
     }
   }
+
+  Future<CartResult<String>> addItemToCart({
+    required String userId,
+    required String token,
+    required String productId,
+    required int quantity,
+  }) async {
+    final result = await _httpManager.restRequest(
+      url: Endpoints.addItemToCart,
+      method: HttpMethods.post,
+      body: {"user": userId, "quantity": quantity, "productId": productId},
+      headers: {"token": token},
+    );
+
+    if (result['result'] != null) {
+      return CartResult<String>.success(result['result']['id']);
+    } else {
+      return CartResult.error('Não foi possível adicionar o item no carrinho');
+    }
+  }
 }
