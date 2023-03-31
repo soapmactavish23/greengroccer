@@ -19,6 +19,15 @@ class CartController extends GetxController {
     getCartItem();
   }
 
+  double cartTotalPrice() {
+    double total = 0;
+    for (final item in cartItems) {
+      total += item.totalPrice();
+    }
+
+    return total;
+  }
+
   Future<void> getCartItem() async {
     final CartResult<List<CartItemModel>> result =
         await cartRepository.getCartItems(
