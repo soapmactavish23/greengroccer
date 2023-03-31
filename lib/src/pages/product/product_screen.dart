@@ -5,6 +5,7 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 
 import 'package:greengrocer/src/models/item_model.dart';
 import 'package:greengrocer/src/pages/base/controller/navigation_controller.dart';
+import 'package:greengrocer/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrocer/src/pages/common_widgets/quantity_widget.dart';
 import 'package:greengrocer/src/services/utils_service.dart';
 
@@ -22,11 +23,11 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   final UtilsService utilsService = UtilsService();
 
-  int cartItemQuantity = 1;
-
   @override
   Widget build(BuildContext context) {
     final navigationController = Get.find<NavigationController>();
+    int cartItemQuantity = 1;
+    final CartController cartController = Get.find<CartController>();
 
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(230),
@@ -107,6 +108,12 @@ class _ProductScreenState extends State<ProductScreen> {
                                     borderRadius: BorderRadius.circular(15))),
                             onPressed: () {
                               Get.back();
+
+                              cartController.addItemToCart(
+                                item: widget.item,
+                                quantity: cartItemQuantity,
+                              );
+
                               navigationController.navigatePageView(
                                 NavigationTabs.cart,
                               );

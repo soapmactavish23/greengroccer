@@ -41,7 +41,7 @@ class CartRepository {
       url: Endpoints.addItemToCart,
       method: HttpMethods.post,
       body: {"user": userId, "quantity": quantity, "productId": productId},
-      headers: {"token": token},
+      headers: {"X-Parse-Session-Token": token},
     );
 
     if (result['result'] != null) {

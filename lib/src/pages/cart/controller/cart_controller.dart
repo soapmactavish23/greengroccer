@@ -58,10 +58,24 @@ class CartController extends GetxController {
     if (itemIndex >= 0) {
       cartItems[itemIndex].quantity += quantity;
     } else {
-      // TODO: Adicionando item no carrinho
-      // cartRepository.addItemToCart(userId: userId, token: token, productId: productId, quantity: quantity)
+      final CartResult<String> result = await cartRepository.addItemToCart(
+        userId: authController.user.id!,
+        token: authController.user.token!,
+        productId: item.id,
+        quantity: quantity,
+      );
 
-      cartItems.add(CartItemModel(item: item, id: '', quantity: quantity));
+      result.when(
+        success: (cartItemId) {
+          cartItems.add(CartItemModel(
+            item: item,
+            id: cartItemId,
+            quantity: quantity,
+          ));
+        },
+        error: (message) =>
+            UtilsService.showToast(message: message, isError: true),
+      );
     }
 
     update();
