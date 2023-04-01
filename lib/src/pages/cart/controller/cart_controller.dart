@@ -39,7 +39,6 @@ class CartController extends GetxController {
     result.when(success: (data) {
       cartItems = data;
       update();
-      print(data);
     }, error: (message) {
       UtilsService.showToast(message: message, isError: true);
     });
