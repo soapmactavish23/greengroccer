@@ -38,7 +38,9 @@ class _HomeTabState extends State<HomeTab> {
               builder: (controller) {
                 return GestureDetector(
                   onTap: () {
-                    navigationController.navigatePageView(NavigationTabs.cart);
+                    navigationController.navigatePageView(
+                      NavigationTabs.cart,
+                    );
                   },
                   child: Badge(
                     badgeColor: CustomColors.customContrastColor,
