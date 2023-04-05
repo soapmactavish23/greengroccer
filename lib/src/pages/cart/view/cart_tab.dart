@@ -152,16 +152,24 @@ class _CartTabState extends State<CartTab> {
                 },
                 child: const Text('Não'),
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop(true);
+              GetBuilder<CartController>(
+                builder: (controller) {
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: controller.isCheckoutLoading
+                        ? null
+                        : () {
+                            Navigator.of(context).pop(true);
+                          },
+                    child: controller.isCheckoutLoading
+                        ? const CircularProgressIndicator()
+                        : const Text('Sim'),
+                  );
                 },
-                child: const Text('Sim'),
               )
             ],
           );

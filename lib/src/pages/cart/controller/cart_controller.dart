@@ -16,6 +16,8 @@ class CartController extends GetxController {
 
   List<CartItemModel> cartItems = [];
 
+  bool isCheckoutLoading = false;
+
   @override
   void onInit() {
     super.onInit();
@@ -80,14 +82,26 @@ class CartController extends GetxController {
     return cartItems.indexWhere((itemInList) => itemInList.item.id == item.id);
   }
 
+  void setCheckoutLoading(bool value) {
+    isCheckoutLoading = true;
+    update();
+  }
+
   Future checkouCart() async {
+    setCheckoutLoading(true);
+
     CartResult<OrderModel> result = await cartRepository.checkouCart(
       token: authController.user.token!,
       total: cartTotalPrice(),
     );
 
+    setCheckoutLoading(false);
+
     result.when(
       success: (order) {
+        cartItems.clear();
+        update();
+
         showDialog(
           context: Get.context!,
           builder: (_) {
