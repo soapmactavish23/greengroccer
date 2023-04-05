@@ -92,6 +92,7 @@ UserModel user = UserModel(
 List<OrderModel> orders = [
   // Pedido 01
   OrderModel(
+    qrCodeImage: '',
     copyAndPaste: 'q1w2e3r4t5y6',
     createdDateTime: DateTime.parse(
       '2023-06-08 10:00:10.458',
@@ -118,6 +119,7 @@ List<OrderModel> orders = [
 
   // Pedido 02
   OrderModel(
+    qrCodeImage: '',
     copyAndPaste: 'q1w2e3r4t5y6',
     createdDateTime: DateTime.parse(
       '2023-06-08 10:00:10.459',

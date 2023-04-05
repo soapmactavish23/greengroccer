@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/models/cart_item_model.dart';
 import 'package:greengrocer/src/models/item_model.dart';
+import 'package:greengrocer/src/models/order_model.dart';
 import 'package:greengrocer/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrocer/src/pages/cart/cart_result/cart_result.dart';
 import 'package:greengrocer/src/pages/cart/repository/cart_repository.dart';
+import 'package:greengrocer/src/pages/common_widgets/payment_dialog.dart';
 import 'package:greengrocer/src/services/utils_service.dart';
 
 class CartController extends GetxController {
@@ -75,6 +78,31 @@ class CartController extends GetxController {
 
   int getItemIndex(ItemModel item) {
     return cartItems.indexWhere((itemInList) => itemInList.item.id == item.id);
+  }
+
+  Future checkouCart() async {
+    CartResult<OrderModel> result = await cartRepository.checkouCart(
+      token: authController.user.token!,
+      total: cartTotalPrice(),
+    );
+
+    result.when(
+      success: (order) {
+        showDialog(
+          context: Get.context!,
+          builder: (_) {
+            return PaymentDialog(
+              order: order,
+            );
+          },
+        );
+      },
+      error: (message) {
+        UtilsService.showToast(
+          message: 'Pedido não confirmado',
+        );
+      },
+    );
   }
 
   Future<void> addItemToCart({

@@ -4,7 +4,6 @@ import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/models/cart_item_model.dart';
 import 'package:greengrocer/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrocer/src/pages/cart/view/components/cart_tile.dart';
-import 'package:greengrocer/src/pages/common_widgets/payment_dialog.dart';
 import 'package:greengrocer/src/services/utils_service.dart';
 import 'package:greengrocer/src/config/app_data.dart' as appData;
 
@@ -37,6 +36,8 @@ class _CartTabState extends State<CartTab> {
 
   @override
   Widget build(BuildContext context) {
+    final cartController = Get.find<CartController>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Carrinho'),
@@ -117,19 +118,7 @@ class _CartTabState extends State<CartTab> {
                     onPressed: () async {
                       bool? result = await showOrderConfirmation();
                       if (result ?? false) {
-                        showDialog(
-                          context: context,
-                          builder: (_) {
-                            return PaymentDialog(
-                              order: appData.orders.first,
-                            );
-                          },
-                        );
-                      } else {
-                        UtilsService.showToast(
-                          message: 'Pedido não confirmado',
-                          isError: true,
-                        );
+                        cartController.checkouCart();
                       }
                     },
                     child: const Text(
