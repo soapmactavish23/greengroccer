@@ -10,6 +10,7 @@ part 'order_model.g.dart';
 class OrderModel {
   String id;
 
+  @JsonKey(name: 'createdAt')
   DateTime? createdDateTime;
 
   @JsonKey(name: 'due')
