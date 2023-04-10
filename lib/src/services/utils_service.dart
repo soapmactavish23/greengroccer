@@ -36,7 +36,6 @@ class UtilsService {
   }
 
   static Uint8List decodeQrCodeImage(String value) {
-    print(value);
     String base64String = value.split(',').last;
     return base64.decode(base64String);
   }

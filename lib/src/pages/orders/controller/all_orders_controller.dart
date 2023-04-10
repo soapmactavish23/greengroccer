@@ -1,0 +1,37 @@
+import 'package:get/get.dart';
+import 'package:greengrocer/src/models/order_model.dart';
+import 'package:greengrocer/src/pages/auth/controller/auth_controller.dart';
+import 'package:greengrocer/src/pages/orders/orders_result/orders_result.dart';
+import 'package:greengrocer/src/pages/orders/repository/orders_repository.dart';
+import 'package:greengrocer/src/services/utils_service.dart';
+
+class AllOrdersController extends GetxController {
+  final OrdersRepository ordersRepository = OrdersRepository();
+  final authController = Get.find<AuthController>();
+
+  List<OrderModel> allOrders = [];
+
+  @override
+  void onInit() {
+    super.onInit();
+    getAllOrders();
+  }
+
+  Future<void> getAllOrders() async {
+    OrdersResult<List<OrderModel>> result = await ordersRepository.getAllOrders(
+      userId: authController.user.id!,
+      token: authController.user.token!,
+    );
+
+    result.when(
+      success: (orders) {
+        print(orders);
+        allOrders = orders;
+      },
+      error: (message) => UtilsService.showToast(
+        message: message,
+        isError: true,
+      ),
+    );
+  }
+}
