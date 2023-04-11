@@ -25,7 +25,6 @@ class AllOrdersController extends GetxController {
 
     result.when(
       success: (orders) {
-        print(orders);
         allOrders = orders;
       },
       error: (message) => UtilsService.showToast(
