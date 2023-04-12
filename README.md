@@ -28,27 +28,9 @@
   - [x] Lista produtos
   - [x] Concluir pedido
 
-- <h3>Plano de Treino</h3>
-
-  - [x] Lista de Plano de Treino
-  - [x] Formulário de Plano de Treino
-  - [x] Pesquisa de Plano de Treino
-
-- <h3>Treino</h3>
-
-  - [x] Lista de Treino
-  - [x] Formulário de Treino
-  - [x] Pesquisa de Treino
-
-- <h3>Frequência</h3>
-
-  - [x] Lista de Frequência
-  - [x] Formulário de Frequência
-  - [x] Detalhes da Frequência
-
 ## 📚 Descrição
 
-- Esse aplicativo foi desenvolvido com o intuito do usuário planejar seus planos de treinos e exercícios.
+- Esse aplicativo foi desenvolvido para gestão de uma quitanda de frutas.
 
 ## 🛠 Tecnologias
 
