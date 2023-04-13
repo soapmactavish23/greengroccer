@@ -1,5 +1,5 @@
 <h1 align="center">
-   <img src="prints/splashscreen.PNG" width="200">
+   <img src="prints/splashscreen.png" width="200">
 </h1>
 
 <h4 align="center"> 
